@@ -62,4 +62,12 @@ const retrieveAll = async (request, response) => {
   response.json(allRecords)
 }
 
-module.exports = { create, destroy, retrieve, retrieveAll }
+const search = async (request, response) => {
+  const params = request.query
+
+  const records = await postItModel.search(params)
+
+  response.json(records)
+}
+
+module.exports = { create, destroy, retrieve, retrieveAll, search }

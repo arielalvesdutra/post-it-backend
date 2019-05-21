@@ -8,7 +8,11 @@ const postItController = require('./controllers/post-it-controller')
  * Injeta body parser de json
  */
 app.use(bodyParser.json())
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 /**
  * Página inicial
  */
@@ -26,6 +30,8 @@ app.route('/post-its')
 app.route('/post-its/:id')
   .delete(postItController.destroy)
   .get(postItController.retrieve)
+
+app.get('/search/post-its/:filters', postItController.search)
 
 /**
  * Porta de escuta

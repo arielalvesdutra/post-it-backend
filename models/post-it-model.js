@@ -52,10 +52,25 @@ const save = (title, description) => {
   }).catch(error => error)
 }
 
+const search = async (filters) => {
+
+  const title = filters.title
+
+  const records = await knex
+  .select()
+  .from(tableName)
+  .where('title', 'like', `%${title}%`)
+  .then(records => records)
+  .catch(error => error)
+
+  return records
+}
+
 module.exports = { 
   destroy,
   find, 
   findAll, 
   findByTitle, 
-  save 
+  save,
+  search
 }

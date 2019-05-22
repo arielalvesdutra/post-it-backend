@@ -2,12 +2,13 @@ const knex = require('../dbConection')
 
 const tableName = 'post_its'
 
-const destroy = id => {
-  knex.transaction((trx) => {
+const destroy = async id => {
+  return knex.transaction((trx) => {
+    
     knex(tableName).where('id', id).del()
-    .transacting(trx)
-    .then(trx.commit)
-    .catch(trx.rollback)
+      .transacting(trx)
+      .then(trx.commit)
+      .catch(trx.rollback)
   }).catch(error => error)
 }
 
@@ -25,7 +26,7 @@ const find = async id => {
 
 const findAll = async () => {
 
-  const records = await knex.select().from(tableName)
+  const records = knex.select().from(tableName)
     .then(records => records)
     .catch(error => error)
 
@@ -41,8 +42,8 @@ const findByTitle = async (title) => {
   return records
 }
 
-const save = (title, description) => {
-  knex.transaction((trx) => {
+const save = async (title, description) => {
+  return knex.transaction((trx) => {
 
     knex.insert({ title: title, description: description })
       .into(tableName)
@@ -57,20 +58,20 @@ const search = async (filters) => {
   const title = filters.title
 
   const records = await knex
-  .select()
-  .from(tableName)
-  .where('title', 'like', `%${title}%`)
-  .then(records => records)
-  .catch(error => error)
+    .select()
+    .from(tableName)
+    .where('title', 'like', `%${title}%`)
+    .then(records => records)
+    .catch(error => error)
 
   return records
 }
 
-module.exports = { 
+module.exports = {
   destroy,
-  find, 
-  findAll, 
-  findByTitle, 
+  find,
+  findAll,
+  findByTitle,
   save,
   search
 }

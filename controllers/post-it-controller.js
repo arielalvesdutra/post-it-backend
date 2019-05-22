@@ -13,7 +13,7 @@ const create = async (request, response) => {
     return response.send("Já existe um post-it com esse título.")
   }
 
-  postItModel.save(parameters.title, parameters.description)
+  await postItModel.save(parameters.title, parameters.description)
 
   response.sendStatus(201)
 }
@@ -32,7 +32,7 @@ const destroy = async (request, response) => {
     return response.send("Registro não encontrado").end()
   }
 
-  postItModel.destroy(record.id)
+  await postItModel.destroy(record.id)
 
   response.sendStatus(200)
 }
@@ -57,9 +57,11 @@ const retrieve = async (request, response) => {
 
 const retrieveAll = async (request, response) => {
 
-  const allRecords = await postItModel.findAll()
-
-  response.json(allRecords)
+  postItModel.findAll()
+  .then(allRecords => {
+    
+    response.json(allRecords)
+  })
 }
 
 const search = async (request, response) => {

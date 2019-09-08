@@ -32,8 +32,6 @@ app.route('/post-its/:id')
   .delete(postItController.destroy)
   .get(postItController.retrieve)
 
-app.get('/search/post-its/:filters', postItController.search)
-
 /**
  * Porta de escuta
  */

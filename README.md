@@ -12,7 +12,7 @@ $ npm i
 
 2 - Banco de dados
 
-Criar e configurar os dados do banco de dados MySQL no arquivo `.env`.
+Criar e configurar os dados do banco de dados MySQL no arquivo `.env`, bastando renomear o modelo de de configuração `.env-example` para `.env` e inserir as configurações nele. 
 
 3 - Migration
 

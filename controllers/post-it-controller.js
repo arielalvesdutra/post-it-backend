@@ -57,19 +57,20 @@ const retrieve = async (request, response) => {
 
 const retrieveAll = async (request, response) => {
 
-  postItModel.findAll()
-  .then(allRecords => {
-    
-    response.json(allRecords)
-  })
+  const page = parseInt(request.query.page) || 1
+  const itemsPerPage = 30
+  const title = request.query.title || ''
+  
+  postItModel.findAll(page, itemsPerPage, title)
+    .then(data => {
+      
+      response.json({
+        itemsPerPage,
+        records: data.records,
+        totalItems: data.totalItems,
+        currentPage: page
+      })
+    })
 }
 
-const search = async (request, response) => {
-  const params = request.query
-
-  const records = await postItModel.search(params)
-
-  response.json(records)
-}
-
-module.exports = { create, destroy, retrieve, retrieveAll, search }
+module.exports = { create, destroy, retrieve, retrieveAll }

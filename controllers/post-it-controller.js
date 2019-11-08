@@ -58,7 +58,7 @@ const retrieve = async (request, response) => {
 const retrieveAll = async (request, response) => {
 
   const page = parseInt(request.query.page) || 1
-  const itemsPerPage = 30
+  const itemsPerPage = 12
   const title = request.query.title || ''
   
   postItModel.findAll(page, itemsPerPage, title)

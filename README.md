@@ -31,7 +31,7 @@ $ npm install knex -g
 4 - Executar o node
 
 ```bash
-$ node index.js
+$ npm start
 ```
 
 # Frontend 

@@ -1,10 +1,11 @@
 {
   "name": "post-it-backend",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Backend do projeto Post-It",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Ariel Alves Dutra",
   "license": "MIT",

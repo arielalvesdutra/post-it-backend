@@ -2,20 +2,22 @@ const postItModel = require('../models/post-it-model')
 
 const create = async (request, response) => {
   const parameters = request.body
+  const { title, description } = parameters
 
-  if(!parameters.title || !parameters.description) {
-    response.sendStatus(400)
+  if (!title || !description) {
+    return response.status(400).send("Parâmetros obrigatórios não preenchidos")
   } 
 
-  const fetchByName = await postItModel.findByTitle(parameters.title)
+  const fetchByName = await postItModel.findByTitle(title)
 
   if (fetchByName.length) {
-    return response.send("Já existe um post-it com esse título.")
+    return response.status(400).send("Já existe um post-it com esse título.")
   }
 
-  await postItModel.save(parameters.title, parameters.description)
-
-  response.sendStatus(201)
+  const createdPostItId = await postItModel.save(title, description)
+  const createdPostIt = await postItModel.find(createdPostItId)
+  
+  response.status(201).send(createdPostIt)
 }
 
 const destroy = async (request, response) => {
@@ -28,8 +30,7 @@ const destroy = async (request, response) => {
   const record = await postItModel.find(id)
 
   if (!record) {
-    response.status(400)
-    return response.send("Registro não encontrado").end()
+    return response.status(400).send("Registro não encontrado").end()
   }
 
   await postItModel.destroy(record.id)
@@ -48,8 +49,7 @@ const retrieve = async (request, response) => {
   const record = await postItModel.find(id)
 
   if (!record) {
-    response.status(400)
-    return response.send("Registro não encontrado").end()
+    return response.status(400).send("Registro não encontrado").end()
   }
 
   response.json(record)
@@ -60,8 +60,9 @@ const retrieveAll = async (request, response) => {
   const page = parseInt(request.query.page) || 1
   const itemsPerPage = 12
   const title = request.query.title || ''
+  const description = request.query.description || ''
   
-  postItModel.findAll(page, itemsPerPage, title)
+  postItModel.findAll(page, itemsPerPage, {title, description})
     .then(data => {
       
       response.json({

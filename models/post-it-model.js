@@ -24,11 +24,12 @@ const find = async id => {
   return records
 }
 
-const findAll = async (page = 1, limit = 30, title =  "") => {
+const findAll = async (page = 1, limit = 30, { title = "", description = ""}) => {
 
   const totalItems = await knex.count({ count: '*' })
     .from(tableName)
     .where('title', 'like', `%${title}%`)
+    .andWhere('description', 'like', `%${description}%`)
     .limit(limit)
     .then(quantity => quantity.reduce((sum, element)  => element))
     .catch(error => error)
@@ -38,6 +39,7 @@ const findAll = async (page = 1, limit = 30, title =  "") => {
   const records = await knex.select()
     .from(tableName)
     .where('title', 'like', `%${title}%`)   
+    .andWhere('description', 'like', `%${description}%`)
     .limit(limit)
     .offset(offsetStartIn)
     .orderBy('title')
@@ -75,5 +77,6 @@ module.exports = {
   find,
   findAll,
   findByTitle,
-  save
+  save,
+  tableName
 }

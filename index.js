@@ -1,8 +1,10 @@
 const express = require('express')
 const app =  express()
 const bodyParser = require('body-parser')
-
+const { server } = require('./.env')
 const postItController = require('./controllers/post-it-controller')
+
+if (server.port === undefined) throw Error("Favor definir a porta do servidor")
 
 /**
  * Injeta body parser de json
@@ -18,7 +20,7 @@ app.use(function(req, res, next) {
  * Página inicial
  */
 app.get('/', function(req, res)  {
-  res.send('Hello World')
+  res.send('Post-Its Backend.')
 })
 
 /**
@@ -35,6 +37,6 @@ app.route('/post-its/:id')
 /**
  * Porta de escuta
  */
-app.listen(8000, function() {
-  console.log('Aplicação escutando na porta 8000...')
+app.listen(server.port, function() {
+  console.log(`Aplicação escutando na porta ${server.port}...`)
 })

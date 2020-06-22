@@ -1,8 +1,8 @@
-# Descrição
+# Description
 
-Backend desenvolvido em NodeJs.
+Backend developed with Node.JS.
 
-# Instalação
+# Installation
 
 1 - NPM install:
 
@@ -10,25 +10,27 @@ Backend desenvolvido em NodeJs.
 $ npm i
 ```
 
-2 - Banco de dados
+2 - Data Base
 
-Criar e configurar os dados do banco de dados MySQL no arquivo `.env`, bastando renomear o modelo de de configuração `.env-example` para `.env` e inserir as configurações nele. 
+Create and set up a MySQL database.
+
+Copy the `.env-example` file to `.env` and then insert database configurations in the `.env` file.
 
 3 - Migration
 
-Executar a migration:
+Run the migrations:
 
 ```bash
 $ knex migrate:latest
 ```
 
-** Se não tiver o knex instalado globalmente, é possível instalar com o comando:
+** If knex is not globally installed, it can be installed with the following command:
 
 ```bash
 $ npm install knex -g
 ```
 
-4 - Executar o node
+4 - NPM start
 
 ```bash
 $ npm start
@@ -36,9 +38,9 @@ $ npm start
 
 # Frontend 
 
-Link [aqui](https://github.com/arielalvesdutra/post-it-frontend).
+Link [here](https://github.com/arielalvesdutra/post-it-frontend).
 
-# Tecnologias utilizadas
+# Technologies used
 
 - KnexJs
 - ExpressJs

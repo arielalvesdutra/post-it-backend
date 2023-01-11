@@ -16,6 +16,6 @@
     "nodemon": "^1.19.0"
   },
   "devDependencies": {
-    "knex": ">=0.19.5"
+    "knex": ">=2.4.0"
   }
 }
